@@ -25,9 +25,15 @@ export default function Comments({ filteredData}) {
                             {row.comments}
                         </p>
                         <p className="text-sm text-gray-500 mt-1">
+                            Location: {row.Location}
+                        </p>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Department: {row.Dept}
+                        </p>
+                        <p className="text-sm text-gray-500 mt-1">
                             {/* This was tricky to figure out, should show parent question first for "Open Questions",
                             Otherwise it should get the category from wuestion text for the parent class. */}
-                            Category: {row.parent_question || row.question_text} 
+                            Category: {row.parent_question || row.question_text}        
                         </p>
                     </div>
                 ))}
