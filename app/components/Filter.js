@@ -1,6 +1,6 @@
 'use client';
 
-export default function Filter({data, filters, setFilters}) {
+export default function Filter({data, filters, setFilters, applyFilters, resetFilters}) {
     // Get unique locations from data
     const locations = [];
     data.forEach(row => {
@@ -75,7 +75,7 @@ export default function Filter({data, filters, setFilters}) {
                     <select
                     value={filters.location}
                     onChange={handleLocationChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 hover:cursor-pointer"
                     >
                     <option value="">All Locations</option>
                     {/* Learned: how to map through data in this style */}
@@ -95,7 +95,7 @@ export default function Filter({data, filters, setFilters}) {
                     <select
                     value={filters.department}
                     onChange={handleDepartmentChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 hover:cursor-pointer"
                     >
                     <option value="">All Departments</option>
                     {departments.map(department => (
@@ -114,7 +114,7 @@ export default function Filter({data, filters, setFilters}) {
                     <select
                     value={filters.startYear}
                     onChange={handleStartYearChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 hover:cursor-pointer"
                     >
                     <option value="">All Start Years</option>
                     {startYears.map(startYear => (
@@ -133,7 +133,7 @@ export default function Filter({data, filters, setFilters}) {
                     <select
                     value={filters.category}
                     onChange={handleCategoryChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 hover:cursor-pointer"
                     >
                     <option value="">All Categories</option>
                     {categories.map(category => (
@@ -145,6 +145,22 @@ export default function Filter({data, filters, setFilters}) {
                 </div>
 
             </div>
+            {/* Filter Buttons */}
+            <div className="mt-4 flex justify-end gap-3">
+                <button
+                    onClick={resetFilters}
+                    className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 hover:cursor-pointer"
+                >
+                Reset Filters
+                </button>
+                <button
+                    onClick={applyFilters}
+                    className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 hover:cursor-pointer"
+                >
+                    Apply Filters
+                </button>
+            </div>
+
         </div>
     )
 }

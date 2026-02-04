@@ -38,7 +38,7 @@ export default function ScoreChart({ filteredData }) {
     const chartData = {
         labels: labels,
         datasets: [{
-            label: 'Number of Responses',
+            label: 'Score Distribution:',
             data: data,
             backgroundColour: 'rgba(59, 130, 246, 0.5)',
         }]

@@ -3,19 +3,26 @@ import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import ScoreChart from "./components/ScoreChart";
 import Comments from "./components/Comments";
+import AverageScore from "./components/AverageScore";
 
 export default function Dashboard() {
+
+  // Initial state for filters, makes resetting easier
+  const initialState = {
+    location: '',
+    department: '',
+    startYear: '',
+    category: ''
+  }
+
   // Store survey data
   const [ data, setData ] = useState([]);
   // Loading state for while data loads
   const [ loading, setLoading ] = useState(true);
   //Filter state to store users current selection
-  const [ filters, setFilters] = useState({
-    location: '',
-    department: '',
-    startYear: '',
-    category: '' // Decided to add this for further insight after finishing.
-  });
+  const [ filters, setFilters] = useState(initialState);
+  // Set temp filters for submit
+  const [ tempFilters, setTempFilters] = useState(initialState)
 
   
   useEffect(() => {
@@ -95,6 +102,16 @@ export default function Dashboard() {
     }
   })
 
+  //
+  const applyFilters = () => {
+    setFilters(tempFilters);
+  }
+
+  const resetFilters = () => {
+    setFilters(initialState);
+    setTempFilters(initialState);
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -102,7 +119,13 @@ export default function Dashboard() {
         Cultural Assessment Dashboard
       </h1>
 
-      <Filter data={data} filters={filters} setFilters={setFilters} />
+      <Filter 
+        data={data} 
+        filters={tempFilters} 
+        setFilters={setTempFilters} 
+        applyFilters={applyFilters} 
+        resetFilters={resetFilters} 
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
   
@@ -113,13 +136,10 @@ export default function Dashboard() {
         
         
         <div className="lg:col-span-1 space-y-4">
+          <AverageScore filteredData={filteredData} />
           <div className="bg-white p-6 rounded-lg shadow">
             <p className="text-gray-500 text-sm mb-2">Number of survey participants:</p>
             <p className="text-3xl font-bold text-blue-600">{uniqueResponses}</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow">
-            <p className="text-gray-500 text-sm mb-2">Average Score:</p>
-            <p className="text-3xl font-bold text-blue-600">{averageScore}/10</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
             <p className="text-gray-500 text-sm mb-2">Total comments:</p>
